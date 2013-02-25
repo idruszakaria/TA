@@ -1,0 +1,454 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet id="1" author="endy">
+        <createTable tableName="c_application_config">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints unique="true" nullable="false" />
+            </column>
+            <column name="label" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="value" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <createTable tableName="c_security_menu">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="label" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="menu_action" type="varchar(255)"/>
+            <column name="menu_level" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="menu_order" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="menu_options" type="varchar(255)"/>
+            <column name="id_parent" type="varchar(255)" />
+        </createTable>
+        
+        <createTable tableName="c_security_permission">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="permission_label" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="permission_value" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        
+        <createTable tableName="c_security_role">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="description" type="varchar(255)" />
+        </createTable>
+        <createTable tableName="c_security_role_permission">
+            <column name="id_role" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="id_permission" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+        </createTable>
+        <createTable tableName="c_security_role_menu">
+            <column name="id_role" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="id_menu" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+        </createTable>
+        <createTable tableName="c_security_user">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="fullname" type="varchar(255)" />
+            <column name="active" type="boolean" />
+            <column name="id_role" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <createTable tableName="t_pertanyaan">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="isi" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="jawaban" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="bobot" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <createTable tableName="t_peserta">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="kode" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="nama" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        
+        <createTable tableName="t_pilihan">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="isi" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="kode" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="urutan" type="int(11)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        
+        <createTable tableName="t_soal">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="jumlah_pertanyaan" type="int(11)">
+                <constraints nullable="false" />
+            </column>
+            <column name="kode" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="nama" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="nilai_lulus_minimum" type="int(11)">
+                <constraints nullable="false" />
+            </column>
+            <column name="tingkat_kesulitan" type="int(11)">
+                <constraints nullable="false" />
+            </column>
+            <column name="id_topik" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        
+        <createTable tableName="t_topik">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="kode" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="nama" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        
+        <createTable tableName="t_ujian">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="isi" type="longtext">
+                <constraints nullable="false" />
+            </column>
+            <column name="waktu_mulai" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="waktu_selesai" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="id_pertanyaan" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="id_pilihan" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="id_ujian" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="id_peserta" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        
+        <createTable tableName="lesson">
+            <column name="lesson_id" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="majors" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="semester" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="kkm" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="total_competency" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="description" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        
+        
+        <createTable tableName="notif_mail">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="nama" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="kelas" type="varchar(30)">
+                <constraints nullable="false" />
+            </column>
+            <column name="email" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        
+        <modifySql dbms="mysql">
+            <append value=" engine innodb" />
+        </modifySql>
+    </changeSet>
+    <changeSet id="2" author="endy">
+        <addForeignKeyConstraint
+            constraintName="fk_menu_parent"
+            baseColumnNames="id_parent"
+            baseTableName="c_security_menu"
+            referencedTableName="c_security_menu"
+            referencedColumnNames="id"
+        />
+        <addUniqueConstraint
+            constraintName="unique_permission_value"
+            columnNames="permission_value"
+            tableName="c_security_permission"
+        />
+        <addUniqueConstraint
+            constraintName="unique_role_name"
+            columnNames="name"
+            tableName="c_security_role"
+        />
+        <addForeignKeyConstraint
+            constraintName="fk_role_permission_role"
+            baseColumnNames="id_role"
+            baseTableName="c_security_role_permission"
+            referencedTableName="c_security_role"
+            referencedColumnNames="id"
+        />
+        <addForeignKeyConstraint
+            constraintName="fk_role_permission_permission"
+            baseColumnNames="id_permission"
+            baseTableName="c_security_role_permission"
+            referencedTableName="c_security_permission"
+            referencedColumnNames="id"
+        />
+        <addForeignKeyConstraint
+            constraintName="fk_role_menu_role"
+            baseColumnNames="id_role"
+            baseTableName="c_security_role_menu"
+            referencedTableName="c_security_role"
+            referencedColumnNames="id"
+        />
+        <addForeignKeyConstraint
+            constraintName="fk_role_menu_menu"
+            baseColumnNames="id_menu"
+            baseTableName="c_security_role_menu"
+            referencedTableName="c_security_menu"
+            referencedColumnNames="id"
+        />
+        <addUniqueConstraint
+            constraintName="unique_user_username"
+            columnNames="username"
+            tableName="c_security_user"
+        />
+        <addForeignKeyConstraint
+            constraintName="fk_user_role"
+            baseColumnNames="id_role"
+            baseTableName="c_security_user"
+            referencedTableName="c_security_role"
+            referencedColumnNames="id"
+        />
+        
+        
+        <addUniqueConstraint
+            constraintName="unique_peserta_email"
+            columnNames="email"
+            tableName="t_peserta"
+        />
+        <addUniqueConstraint
+            constraintName="unique_peserta_kode"
+            columnNames="kode"
+            tableName="t_peserta"
+        />
+        
+        <addUniqueConstraint
+            constraintName="unique_soal_kode"
+            columnNames="kode"
+            tableName="t_soal"
+        />
+        <addForeignKeyConstraint
+            constraintName="fk_soal_topik"
+            baseColumnNames="id_topik"
+            baseTableName="t_soal"
+            referencedTableName="t_topik"
+            referencedColumnNames="id"
+        />
+        
+        <addUniqueConstraint
+            constraintName="unique_topik_kode"
+            columnNames="kode"
+            tableName="t_topik"
+        />
+        
+        <addForeignKeyConstraint
+            constraintName="fk_ujian_pertanyaan"
+            baseColumnNames="id_pertanyaan"
+            baseTableName="t_ujian"
+            referencedTableName="t_pertanyaan"
+            referencedColumnNames="id"
+        />
+        <addForeignKeyConstraint
+            constraintName="fk_ujian_pilihan"
+            baseColumnNames="id_pilihan"
+            baseTableName="t_ujian"
+            referencedTableName="t_pilihan"
+            referencedColumnNames="id"
+        />
+        <addForeignKeyConstraint
+            constraintName="fk_ujian_ujian"
+            baseColumnNames="id_ujian"
+            baseTableName="t_ujian"
+            referencedTableName="t_ujian"
+            referencedColumnNames="id"
+        />
+        <addForeignKeyConstraint
+            constraintName="fk_ujian_peserta"
+            baseColumnNames="id_peserta"
+            baseTableName="t_ujian"
+            referencedTableName="t_peserta"
+            referencedColumnNames="id"
+        />
+        
+    </changeSet>
+    <changeSet id="3" author="endy">
+        <loadData tableName="c_security_menu" file="com/artivisi/school/onlinetest/db/data/menu.csv">
+            <column header="id" type="STRING"/>
+            <column header="label" type="STRING"/>
+            <column header="menu_action" type="STRING"/>
+            <column header="menu_level" type="NUMERIC"/>
+            <column header="menu_order" type="NUMERIC"/>
+            <column header="menu_options" type="STRING"/>
+            <column header="id_parent" type="STRING"/>
+        </loadData>
+        <loadData tableName="c_security_permission" file="com/artivisi/school/onlinetest/db/data/permission.csv">
+            <column header="id" type="STRING"/>
+            <column header="permission_label" type="STRING"/>
+            <column header="permission_value" type="STRING"/>
+        </loadData>
+        <loadData tableName="c_security_role" file="com/artivisi/school/onlinetest/db/data/role.csv">
+            <column header="id" type="STRING"/>
+            <column header="name" type="STRING"/>
+            <column header="description" type="STRING"/>
+        </loadData>
+        <loadData tableName="c_security_role_menu" file="com/artivisi/school/onlinetest/db/data/role_menu.csv">
+            <column header="id_role" type="STRING"/>
+            <column header="id_menu" type="STRING"/>
+        </loadData>
+        <loadData tableName="c_security_role_permission" file="com/artivisi/school/onlinetest/db/data/role_permission.csv">
+            <column header="id_role" type="STRING"/>
+            <column header="id_permission" type="STRING"/>
+        </loadData>
+        <loadData tableName="c_security_user" file="com/artivisi/school/onlinetest/db/data/user.csv">
+            <column header="id" type="STRING"/>
+            <column header="username" type="STRING"/>
+            <column header="fullname" type="STRING"/>
+            <column header="password" type="STRING"/>
+            <column header="active" type="BOOLEAN"/>
+            <column header="id_role" type="STRING"/>
+        </loadData>
+        <loadData tableName="t_pertanyaan" file="com/artivisi/school/onlinetest/db/data/t_pertanyaan.csv">
+            <column header="id" type="STRING"/>
+            <column header="isi" type="STRING"/>
+            <column header="jawaban" type="STRING"/>
+            <column header="bobot" type="STRING"/>
+        </loadData>
+        <loadData tableName="t_peserta" file="com/artivisi/school/onlinetest/db/data/t_peserta.csv">
+            <column header="id" type="STRING"/>
+            <column header="email" type="STRING"/>
+            <column header="kode" type="STRING"/>
+            <column header="nama" type="STRING"/>
+        </loadData>
+        <loadData tableName="t_pilihan" file="com/artivisi/school/onlinetest/db/data/t_pilihan.csv">
+            <column header="id" type="STRING"/>
+            <column header="isi" type="STRING"/>
+            <column header="kode" type="STRING"/>
+            <column header="urutan" type="NUMERIC"/>
+        </loadData>
+        <loadData tableName="t_topik" file="com/artivisi/school/onlinetest/db/data/t_topik.csv">
+            <column header="id" type="STRING"/>
+            <column header="kode" type="STRING"/>
+            <column header="nama" type="STRING"/>
+        </loadData>
+        <loadData tableName="t_soal" file="com/artivisi/school/onlinetest/db/data/t_soal.csv">
+            <column header="id" type="STRING"/>
+            <column header="jumlah_pertanyaan" type="NUMERIC"/>
+            <column header="kode" type="STRING"/>
+            <column header="nama" type="STRING"/>
+            <column header="nilai_lulus_minimum" type="NUMERIC"/>
+            <column header="tingkat_kesulitan" type="NUMERIC"/>
+            <column header="id_topik" type="STRING"/>
+        </loadData>
+        <loadData tableName="t_ujian" file="com/artivisi/school/onlinetest/db/data/t_ujian.csv">
+            <column header="id" type="STRING"/>
+            <column header="isi" type="STRING"/>
+            <column header="waktu_mulai" type="DATE"/>
+            <column header="waktu_selesai" type="DATE"/>
+            <column header="id_pertanyaan" type="STRING"/>
+            <column header="id_pilihan" type="STRING"/>
+            <column header="id_ujian" type="STRING"/>
+            <column header="id_peserta" type="STRING"/>
+        </loadData>
+        <loadData tableName="lesson" file="com/artivisi/school/onlinetest/db/data/lesson.csv">
+            <column header="lesson_id" type="NUMERIC"/>
+            <column header="majors" type="STRING"/>
+            <column header="name" type="STRING"/>
+            <column header="kkm" type="NUMERIC"/>
+            <column header="total_competency" type="NUMERIC"/>
+            <column header="description" type="STRING"/>
+        </loadData>
+        <loadData tableName="notif_mail" file="com/artivisi/school/onlinetest/db/data/notif_mail.csv">
+            <column header="id" type="STRING"/>
+            <column header="nama" type="STRING"/>
+            <column header="kelas" type="STRING"/>
+            <column header="email" type="STRING"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

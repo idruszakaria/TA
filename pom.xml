@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.artivisi.school.onlinetest</groupId>
+	<artifactId>school-onlinetest</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>Aplikasi Test Online</name>
+	<inceptionYear>2011</inceptionYear>
+
+	<scm>
+		<url>https://github.com/artivisi/belajar</url>
+		<connection>git://github.com/artivisi/belajar.git</connection>
+		<developerConnection>git@github.com:artivisi/belajar.git</developerConnection>
+	</scm>
+
+	<distributionManagement>
+		<!-- releases repository -->
+		<repository>
+			<id>artivisi-nexus</id>
+			<name>ArtiVisi Release Repository</name>
+			<url>http://${artifact.repo.host}:${artifact.repo.port.http}/${artifact.repo.path.upload}/releases</url>
+		</repository>
+
+		<!-- snapshot repository -->
+		<snapshotRepository>
+			<id>artivisi-nexus</id>
+			<name>ArtiVisi Snapshot Repository</name>
+			<url>http://${artifact.repo.host}:${artifact.repo.port.http}/${artifact.repo.path.upload}/snapshots</url>
+		</snapshotRepository>
+
+	</distributionManagement>
+
+
+	<!-- Default Properties -->
+	<properties>
+		<!-- versi library dan framework -->
+		<org.springframework.version>3.2.0.RELEASE</org.springframework.version>
+		<org.springframework.data.version>1.1.0.RELEASE</org.springframework.data.version>
+		<org.springframework.security.version>3.1.3.RELEASE</org.springframework.security.version>
+		<org.hibernate.version>4.1.9.Final</org.hibernate.version>
+		<org.hibernate.validator.version>4.3.1.Final</org.hibernate.validator.version>
+		<org.slf4j.version>1.7.2</org.slf4j.version>
+		<ch.qos.logback.version>1.0.9</ch.qos.logback.version>
+		<joda-time.version>2.1</joda-time.version>
+		<jackson2.version>2.1.1</jackson2.version>
+		<mysql.version>5.1.22</mysql.version>
+		<junit.version>4.11</junit.version>
+		<dbunit.version>2.4.8</dbunit.version>
+		<jacoco-maven-plugin.version>0.5.3.201107060350</jacoco-maven-plugin.version>
+		<servlet.version>2.5</servlet.version>
+		<commons-fileupload.version>1.2.2</commons-fileupload.version>
+		<commons-io.version>2.0.1</commons-io.version>
+		<commons-logging.version>1.1.1</commons-logging.version>
+		<commons-dbcp.version>1.4</commons-dbcp.version>
+        <guava.version>10.0.1</guava.version>
+		<liquibase-maven-plugin.version>2.0.5</liquibase-maven-plugin.version>
+		<maven-failsafe-plugin.version>2.12.4</maven-failsafe-plugin.version>
+		<rest-assured.version>1.7.2</rest-assured.version>
+		<javamelody.version>1.42.0</javamelody.version>
+
+		<!-- konfigurasi database development -->
+		<hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
+		<db.driver>com.mysql.jdbc.Driver</db.driver>
+		<db.url><![CDATA[jdbc:mysql://localhost/school-onlinetest_development?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull]]></db.url>
+		<db.username>root</db.username>
+		<db.password>admin</db.password>
+
+		<!-- konfigurasi application server -->
+		<appserver.port.http>10000</appserver.port.http>
+		<appserver.deployment.context>/</appserver.deployment.context>
+
+		<!-- konfigurasi sonar -->
+		<sonar.jacoco.itReportPath>${project.build.directory}/jacoco.exec</sonar.jacoco.itReportPath>
+		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+		<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
+
+		<!-- konfigurasi artifact repository -->
+		<artifact.repo.host>forge.artivisi.com</artifact.repo.host>
+		<artifact.repo.path.upload>nexus/content/repositories</artifact.repo.path.upload>
+		<artifact.repo.port.http>8080</artifact.repo.port.http>
+		<artifact.repo.path.download>nexus/content/groups/public</artifact.repo.path.download>
+		<artifact.repo.url>http://${artifact.repo.host}:${artifact.repo.port.http}/${artifact.repo.path.download}</artifact.repo.url>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>${commons-logging.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${org.slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+			<version>${org.slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${ch.qos.logback.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>${joda-time.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-maven-plugin.version}</version>
+				<configuration>
+					<append>true</append>
+				</configuration>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>logs</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+  <modules>
+    <module>school-onlinetest-config</module>
+    <module>school-onlinetest-domain</module>
+    <module>school-onlinetest-service</module>
+    <module>school-onlinetest-web</module>
+  </modules>
+</project>

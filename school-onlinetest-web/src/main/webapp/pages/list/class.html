@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="span10 well-large">
+        <h1>Form Class</h1>
+        <form class="form-horizontal" name="formEdit">
+            <div class="control-group" ng-class="{error: formEdit.tingkat.$invalid}">
+					<label class="control-label" for="tingkat">Grade : &nbsp;</label>
+					<select>
+						<option>X</option>
+						<option>XI</option>
+						<option>XII</option>
+					</select>
+				</div>
+             <div class="control-group" ng-class="{error: formEdit.kompetensi-keahlian.$invalid}">
+					<label class="control-label" for="kompetensi-keahlian">Majors : &nbsp;</label>
+					<select>
+						<option>Akutansi</option>
+						<option>Adm. Perkantoran</option>
+						<option>Pemasaran</option>
+						<option>Rekayasa Perangkat Lunak</option>
+					</select>
+				</div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="simpan()" ng-disabled="isClean() || formEdit.$invalid">Simpan</button>
+                <button type="button" class="btn" ng-click="baru()">Batal</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="span10 well-large">
+        <h1>Daftar Class</h1>
+
+        <a class="btn" ng-click="baru()">
+            <i class="icon-plus-sign"></i>Tambah Data
+        </a>
+        <hr>
+        <table class="table table-striped table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th>Grade</th>
+                    <th>Majors</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in users">
+                    <td>{{x.name}}</td>
+                    <td>{{x.address}}</td>
+                    <td>{{x.subdistrict}}</td>
+                    <td>{{x.phone}}</td>
+                    <td>{{x.website}}</td>
+                    <td>{{x.email}}</td>
+                    <td>
+                        <a ng-click="edit(x)"><i class="icon-edit"></i></a>
+                        <a ng-click="remove(x)"><i class="icon-remove"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

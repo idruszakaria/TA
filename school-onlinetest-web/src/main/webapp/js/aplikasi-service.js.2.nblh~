@@ -1,0 +1,321 @@
+angular.module('belajar.service', ['ngResource'])
+    .factory('ApplicationConfigService', ['$resource', '$http', function($resource, $http){
+        var service = {
+            applicationConfig: $resource('config/:configId'),
+            get: function(param, callback){ return this.applicationConfig.get(param, callback) }, 
+            query: function(){ return this.applicationConfig.query() },
+            save: function(obj){
+                if(obj.id == null){
+                    return $http.post('config', obj);
+                } else {
+                    return $http.put('config/'+obj.id, obj);
+                }
+            }, 
+            remove: function(obj){
+                if(obj.id != null){
+                    return $http.delete('config/'+obj.id);
+                }
+            }
+        };
+            
+        return service;
+    }])
+    .factory('ApplicationSessionsService', ['$http', function($http){
+        var service = {
+            list: function(){ 
+                return $http.get('homepage/sessioninfo');
+            }, 
+            kick: function(user){
+                return $http.delete('homepage/kick/'+user.sessionid);
+            }
+        };
+            
+        return service;
+    }])
+    .factory('SystemMenuService', ['$resource', '$http', function($resource, $http){
+        var service = {
+            menu: $resource('menu/:id', {}, {
+                queryPage: {method:'GET', isArray: false}
+            }),
+            get: function(param, callback){ return this.menu.get(param, callback) }, 
+            query: function(p, callback){ return this.menu.queryPage({"page.page": p, "page.size": 10}, callback) },
+            save: function(obj){
+                if(obj.id == null){
+                    return $http.post('menu', obj);
+                } else {
+                    return $http.put('menu/'+obj.id, obj);
+                }
+            }, 
+            remove: function(obj){
+                if(obj.id != null){
+                    return $http.delete('menu/'+obj.id);
+                }
+            }
+        };
+            
+        return service;
+    }])
+    .factory('PermissionService', ['$resource', '$http', function($resource, $http){
+        var service = {
+            permission: $resource('permission/:id'),
+            get: function(param, callback){ return this.permission.get(param, callback) }, 
+            query: function(){ return this.permission.query() },
+            save: function(obj){
+                if(obj.id == null){
+                    return $http.post('permission', obj);
+                } else {
+                    return $http.put('permission/'+obj.id, obj);
+                }
+            }, 
+            remove: function(obj){
+                if(obj.id != null){
+                    return $http.delete('permission/'+obj.id);
+                }
+            }
+        };
+            
+        return service;
+    }])
+    .factory('RoleService', ['$resource', '$http', function($resource, $http){
+        var service = {
+            role: $resource('role/:id'),
+            get: function(param, callback){ return this.role.get(param, callback) }, 
+            query: function(){ return this.role.query() },
+            save: function(obj){
+                if(obj.id == null){
+                    return $http.post('role', obj);
+                } else {
+                    return $http.put('role/'+obj.id, obj);
+                }
+            }, 
+            remove: function(obj){
+                if(obj.id != null){
+                    return $http.delete('role/'+obj.id);
+                }
+            },
+            unselectedPermission: function(obj){
+                return $http.get('role/'+obj.id+'/unselected-permission');
+            },
+            unselectedMenu: function(obj){
+                return $http.get('role/'+obj.id+'/unselected-menu');
+            }
+        };
+            
+        return service;
+    }])
+    .factory('UserService', ['$resource', '$http', function($resource, $http){
+        var service = {
+            user: $resource('user/:id'),
+            get: function(param, callback){ return this.user.get(param, callback) }, 
+            query: function(){ return this.user.query() },
+            save: function(obj){
+                if(obj.id == null){
+                    return $http.post('user', obj);
+                } else {
+                    return $http.put('user/'+obj.id, obj);
+                }
+            }, 
+            remove: function(obj){
+                if(obj.id != null){
+                    return $http.delete('user/'+obj.id);
+                }
+            }
+        };
+            
+        return service;
+    }])
+
+    .factory('SoalService', ['$resource', '$http', function($resource, $http){
+        var service = {
+            soal: $resource('master/soal/:id', {}, {
+                queryPage: {method:'GET', isArray: false}
+            }),
+            get: function(param, callback){ return this.soal.get(param, callback) }, 
+            query: function(p, callback){ return this.soal.queryPage({"page.page": p, "page.size": 10}, callback) },
+            save: function(obj){
+                if(obj.id == null){
+                    return $http.post('master/soal', obj);
+                } else {
+                    return $http.put('master/soal/'+obj.id, obj);
+                }
+            }, 
+            remove: function(obj){
+                if(obj.id != null){
+                    return $http.delete('master/soal/'+obj.id);
+                }
+            }
+        };
+            
+        return service;
+    }])
+
+
+
+    .factory('TopikService', ['$resource', '$http', function($resource, $http){
+        var service = {
+            topik: $resource('master/topik/:id', {}, {
+                queryPage: {method:'GET', isArray: false}
+            }),
+            get: function(param, callback){ return this.topik.get(param, callback) }, 
+            query: function(p, callback){ return this.topik.queryPage({"page.page": p, "page.size": 10}, callback) },
+            save: function(obj){
+                if(obj.id == null){
+                    return $http.post('master/topik', obj);
+                } else {
+                    return $http.put('master/topik/'+obj.id, obj);
+                }
+            }, 
+            remove: function(obj){
+                if(obj.id != null){
+                    return $http.delete('master/topik/'+obj.id);
+                }
+            }
+        };
+            
+        return service;
+    }])
+
+ .factory('UjianService', ['$resource', '$http', function($resource, $http){
+        var service = {
+            ujian: $resource('master/ujian/:id', {}, {
+                queryPage: {method:'GET', isArray: false}
+            }),
+            get: function(param, callback){ return this.ujian.get(param, callback) }, 
+            query: function(p, callback){ return this.ujian.queryPage({"page.page": p, "page.size": 10}, callback) },
+            save: function(obj){
+                if(obj.id == null){
+                    return $http.post('master/ujian', obj);
+                } else {
+                    return $http.put('master/ujian/'+obj.id, obj);
+                }
+            }, 
+            remove: function(obj){
+                if(obj.id != null){
+                    return $http.delete('master/ujian/'+obj.id);
+                }
+            }
+        };
+            
+        return service;
+    }])
+
+.factory('PertanyaanService', ['$resource', '$http', function($resource, $http){
+        var service = {
+            soal: $resource('master/pertanyaan/:id', {}, {
+                queryPage: {method:'GET', isArray: false}
+            }),
+            get: function(param, callback){ return this.soal.get(param, callback) }, 
+            query: function(p, callback){ return this.soal.queryPage({"page.page": p, "page.size": 10}, callback) },
+            save: function(obj){
+                if(obj.id == null){
+                    return $http.post('master/pertanyaan', obj);
+                } else {
+                    return $http.put('master/pertanyaan/'+obj.id, obj);
+                }
+            }, 
+            remove: function(obj){
+                if(obj.id != null){
+                    return $http.delete('master/pertanyaan/'+obj.id);
+                }
+            }
+        };
+            
+        return service;
+    }])
+
+ .factory('PilihanService', ['$resource', '$http', function($resource, $http){
+        var service = {
+            soal: $resource('master/pilihan/:id', {}, {
+                queryPage: {method:'GET', isArray: false}
+            }),
+            get: function(param, callback){ return this.soal.get(param, callback) }, 
+            query: function(p, callback){ return this.soal.queryPage({"page.page": p, "page.size": 10}, callback) },
+            save: function(obj){
+                if(obj.id == null){
+                    return $http.post('master/pilihan', obj);
+                } else {
+                    return $http.put('master/pilihan/'+obj.id, obj);
+                }
+            }, 
+            remove: function(obj){
+                if(obj.id != null){
+                    return $http.delete('master/pilihan/'+obj.id);
+                }
+            }
+        };
+            
+        return service;
+    }])
+
+.factory('PesertaService', ['$resource', '$http', function($resource, $http){
+        var service = {
+            peserta: $resource('master/peserta/:id', {}, {
+                queryPage: {method:'GET', isArray: false}
+            }),
+            get: function(param, callback){ return this.peserta.get(param, callback) }, 
+            query: function(p, callback){ return this.peserta.queryPage({"page.page": p, "page.size": 10}, callback) },
+            save: function(obj){
+                if(obj.id == null){
+                    return $http.post('master/peserta', obj);
+                } else {
+                    return $http.put('master/peserta/'+obj.id, obj);
+                }
+            }, 
+            remove: function(obj){
+                if(obj.id != null){
+                    return $http.delete('master/peserta/'+obj.id);
+                }
+            }
+        };
+        
+        return service;
+    }])
+        
+       .factory('LessonService', ['$resource', '$http', function($resource, $http){
+        var service = {
+            lesson: $resource('list/lesson/:id', {}, {
+                queryPage: {method:'GET', isArray: false}
+            }),
+            get: function(param, callback){ return this.lesson.get(param, callback) }, 
+            query: function(){ return this.lesson.query() },
+            save: function(obj){
+                if(obj.id == null){
+                    return $http.post('list/lesson/', obj);
+                } else {
+                    return $http.put('list/lesson/'+obj.id, obj);
+                }
+            }, 
+            remove: function(obj){
+                if(obj.id != null){
+                    return $http.delete('list/lesson/'+obj.id);
+                }
+            }
+        };
+            
+        return service;
+    }])
+
+ .factory('NotifMailService', ['$resource', '$http', function($resource, $http){
+        var service = {
+            mail: $resource('/notifications/email/:id', {}, {
+                queryPage: {method:'GET', isArray: false}
+            }),
+            get: function(param, callback){ return this.mail.get(param, callback) }, 
+            query: function(){ return this.mail.query() },
+            save: function(obj){
+                if(obj.id == null){
+                    return $http.post('notifications/email/', obj);
+                } else {
+                    return $http.put('notifications/email/'+obj.id, obj);
+                }
+            }, 
+            remove: function(obj){
+                if(obj.id != null){
+                    return $http.delete('notifications/email/'+obj.id);
+                }
+            }
+        };
+            
+        return service;
+    }])
+;

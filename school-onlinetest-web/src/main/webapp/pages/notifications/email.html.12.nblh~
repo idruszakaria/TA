@@ -1,0 +1,102 @@
+<div class="span5 well-large">
+    <h1>Email Notification</h1>
+
+    <form class="form-horizontal" name="formEdit">
+        <!-- Button to trigger modal -->
+    <a href="#addEmail" role="button" class="btn btn-primary" data-toggle="modal"><i class="icon-plus-sign"></i>Tambah Data Baru</a>
+
+    <!-- Modal -->
+    <div id="addEmail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+        <h3 id="myModalLabel">Tambah Peserta</h3>
+      </div>
+      <div class="modal-body">
+          <div class="control-group" ng-class="{error: formEdit.nama.$invalid}">
+            <label class="control-label" for="label"> Nama : &nbsp;</label>
+            <input type="text" id="nama" 
+                   name="nama" 
+                   placeholder="Nama Siswa" 
+                   ng-model="currentEmail.nama"
+                   required>
+            <span ng-show="formEdit.label.$error.required" class="help-inline">Harus Diisi</span>
+        </div>
+        <div class="control-group" ng-class="{error: formEdit.kelas.$invalid}">
+            <label class="control-label" for="label"> Kelas : &nbsp;</label>
+            <input type="text" id="kelas" 
+                   name="kelas" 
+                   placeholder="Kelas" 
+                   ng-model="currentEmail.kelas"
+                   required>
+            <span ng-show="formEdit.label.$error.required" class="help-inline">Harus Diisi</span>
+        </div>
+        <div class="control-group" ng-class="{error: formEdit.email.$invalid}">
+            <label class="control-label" for="label"> Email : &nbsp;</label>
+            <input type="text" id="email" 
+                   name="email" 
+                   placeholder="Email Siswa" 
+                   ng-model="currentEmail.email"
+                   required>
+            <span ng-show="formEdit.label.$error.required" class="help-inline">Harus Diisi</span>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" ng-click="simpan()" ng-disabled="isClean() || formEdit.$invalid">Simpan</button>
+          <button type="submit" class="btn btn-info" ng-click="baru()"> Reset</button>
+      </div>
+    </div>
+    </form>
+    
+    
+    <hr>
+    <table class="table table-striped table-condensed table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Kelas</th>
+                <th>Email</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="x in mail.content">
+		<td>{{x.id}}</td>
+                <td>{{x.nama}}</td>
+                <td>{{x.kelas}}</td>
+                <td>{{x.email}}</td>
+                <td>
+                    <a ng-click="edit(x)"><i class="icon-edit"></i></a>
+                    <a ng-click="remove(x)"><i class="icon-remove"></i></a>
+                    <a ng-click="showmail(x)"><i class="icon-file"></i></a> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<div class="span5 well-large">
+    <h1>Form Email</h1>
+    <form class="form-horizontal" name="formEdit">
+        <div class="control-group" ng-class="{error: formEdit.label.$invalid}">
+            <label class="control-label" for="label">Send To : &nbsp;</label>
+            <input type="text" name="email" 
+                   placeholder="ex: ex@example.com" 
+                   ng-model="email" required />
+            <span ng-show="formEdit.label.$error.required" class="help-inline">required</span>
+        </div>
+        
+        <div class="control-group" ng-class="{error: formEdit.label.$invalid}">
+            <label class="control-label" for="label">Message : &nbsp;</label>
+            <textarea rows="3"></textarea>
+            <span ng-show="formEdit.label.$error.required" class="help-inline">required</span>
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary" ng-click="simpan()" ng-disabled="isClean() || formEdit.$invalid">Send</button>
+            <button type="button" class="btn" ng-click="baru()">Cancel</button>
+        </div>
+    </form>
+</div>

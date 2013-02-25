@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.artivisi.school.onlinetest</groupId>
+		<artifactId>school-onlinetest</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>school-onlinetest-web</artifactId>
+	<packaging>war</packaging>
+	<name>RESTful Web Service</name>
+
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.artivisi.school.onlinetest</groupId>
+			<artifactId>school-onlinetest-domain</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.artivisi.school.onlinetest</groupId>
+			<artifactId>school-onlinetest-service</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.artivisi.school.onlinetest</groupId>
+			<artifactId>school-onlinetest-config</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${org.springframework.security.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${org.springframework.security.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson2.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>${commons-fileupload.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.jayway.restassured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>${rest-assured.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>${maven-failsafe-plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>keytool-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>generate-resources</phase>
+						<id>clean</id>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+					<execution>
+						<phase>generate-resources</phase>
+						<id>genkey</id>
+						<goals>
+							<goal>genkey</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<keystore>${project.build.directory}/appserver-ssl.keystore</keystore>
+					<dname>cn=com.artivisi.endy</dname><!-- put your CN here -->
+					<keypass>rahasia123</keypass>
+					<storepass>rahasia123</storepass>
+					<alias>tomcat</alias>
+					<keyalg>RSA</keyalg>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<configuration>
+					<webAppConfig>
+						<contextPath>${appserver.deployment.context}</contextPath>
+					</webAppConfig>
+					<connectors>
+                    <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                      <port>${appserver.port.http}</port>
+                    </connector>
+                  </connectors>
+                  <stopPort>10066</stopPort>
+                  <stopKey>jetty</stopKey>
+				</configuration>
+				
+				<executions>
+                        <execution>
+                                <id>start-jetty</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                        <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                        <scanIntervalSeconds>0</scanIntervalSeconds>
+                                        <daemon>true</daemon>
+                                </configuration>
+                        </execution>
+                        <execution>
+                                <id>stop-jetty</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                        <goal>stop</goal>
+                                </goals>
+                        </execution>
+                </executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+
+	<logger name="com.artivisi.school.onlinetest" level="DEBUG">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</logger>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+
+</included>
+
